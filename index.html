@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Away Go - Hotel Booking</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Logo Styling */
+        .logo img {
+            height: 90px; /* Slightly increased size */
+            background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
+            border-radius: 10px; /* Rounded corners */
+            padding: 8px; /* Inner padding */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            transition: transform 0.3s, box-shadow 0.3s; /* Smooth animations */
+        }
+
+        .logo img:hover {
+            transform: scale(1.1); /* Slight zoom on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+        }
+
+        /* Modal Styling - Increased Size */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7); /* Black with transparency */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%; /* Increased width */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            max-height: 80%; /* Responsive height */
+            overflow-y: auto; /* Scroll if content overflows */
+        }
+
+        .modal-content h3 {
+            font-size: 1.8em; /* Larger heading size */
+            margin-bottom: 20px;
+        }
+
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-content label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .modal-content input, 
+        .modal-content button {
+            padding: 10px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .modal-content button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            background-color: #0056b3;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #000;
+        }
+
+        /* Recommendation Section Styling */
+        .recommendation-card {
+            display: inline-block;
+            width: 30%;
+            margin: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .recommendation-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Compare Section Styling */
+        .compare-section table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .compare-section th, .compare-section td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .compare-section th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="images/logo.png" alt="Go Away Go Logo">
+        </div>
+        <h1>Go Away Go</h1>
+        <nav>
+            <a href="#hero">Home</a>
+            <a href="#recommendation">Recommendations</a>
+            <a href="#compare">Compare Hotels</a>
+            <a href="#" onclick="openModal()">Booking Form</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <h2>Welcome to Go Away Go</h2>
+        <p>Your ultimate destination for seamless hotel bookings and unforgettable stays. Book with us for the best experience.</p>
+        <button onclick="scrollToSection('recommendation')">Get Started</button>
+    </section>
+
+    <!-- Recommendation Section -->
+    <section class="recommendation-section" id="recommendation">
+        <h2>Top Hotel Recommendations</h2>
+        <!-- Hotel 1 -->
+        <div class="recommendation-card">
+            <img src="images/hotel1.jpg" alt="Hotel Paradise">
+            <h3>Hotel Paradise</h3>
+            <p>Experience the luxury and comfort of our premium rooms with breathtaking views.</p>
+            <button class="book-btn" onclick="openModal()">Book Now</button>
+        </div>
+        <!-- Hotel 2 -->
+        <div class="recommendation-card">
+            <img src="images/hotel2.jpg" alt="Ocean Bliss">
+            <h3>Ocean Bliss</h3>
+            <p>Enjoy an ocean-side retreat with personalized service and beautiful ambiance.</p>
+            <button class="book-btn" onclick="openModal()">Book Now</button>
+        </div>
+        <!-- Hotel 3 -->
+        <div class="recommendation-card">
+            <img src="images/hotel3.jpg" alt="Mountain Retreat">
+            <h3>Mountain Retreat</h3>
+            <p>Stay close to nature with our cozy cabins offering panoramic mountain views.</p>
+            <button class="book-btn" onclick="openModal()">Book Now</button>
+        </div>
+        <!-- Hotel 4 -->
+        <div class="recommendation-card">
+            <img src="images/hotel4.jpg" alt="City Luxe">
+            <h3>City Luxe</h3>
+            <p>Indulge in the vibrant city life with luxurious amenities in the heart of the city.</p>
+            <button class="book-btn" onclick="openModal()">Book Now</button>
+        </div>
+        <!-- Hotel 5 -->
+        <div class="recommendation-card">
+            <img src="images/hotel5.jpg" alt="Desert Haven">
+            <h3>Desert Haven</h3>
+            <p>Relax in the tranquility of the desert with premium facilities and unique experiences.</p>
+            <button class="book-btn" onclick="openModal()">Book Now</button>
+        </div>
+    </section>
+
+    <!-- Compare Section -->
+    <section class="compare-section" id="compare">
+        <h2>Compare Hotels</h2>
+        <table>
+            <tr>
+                <th>Hotel</th>
+                <th>Price per Night</th>
+                <th>Rating</th>
+                <th>Amenities</th>
+            </tr>
+            <tr>
+                <td>Hotel Paradise</td>
+                <td>$150</td>
+                <td>4.5/5</td>
+                <td>Free Wi-Fi, Spa, Pool, Breakfast</td>
+            </tr>
+            <tr>
+                <td>Ocean Bliss</td>
+                <td>$120</td>
+                <td>4.3/5</td>
+                <td>Beach Access, Pool, Gym, Free Parking</td>
+            </tr>
+            <tr>
+                <td>Mountain Retreat</td>
+                <td>$180</td>
+                <td>4.8/5</td>
+                <td>Mountain View, Free Breakfast, Hiking Tours</td>
+            </tr>
+            <tr>
+                <td>City Luxe</td>
+                <td>$200</td>
+                <td>4.7/5</td>
+                <td>Central Location, Rooftop Pool, Gourmet Dining</td>
+            </tr>
+            <tr>
+                <td>Desert Haven</td>
+                <td>$140</td>
+                <td>4.4/5</td>
+                <td>Spa, Desert Safari, Unique Architecture</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Booking Form Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Booking Form</h3>
+            <form id="bookingForm">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="checkin">Check-in Date:</label>
+                <input type="date" id="checkin" name="checkin" required>
+                
+                <label for="checkout">Check-out Date:</label>
+                <input type="date" id="checkout" name="checkout" required>
+
+                <label for="guests">Number of Guests:</label>
+                <input type="number" id="guests" name="guests" min="1" required>
+
+                <button type="submit">Submit Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Follow us on social media!</p>
+        <div class="social-icons">
+            <a href="https://wa.me/919007917439" target="_blank">
+                <img src="images/whatsapp-icon.png" alt="WhatsApp">
+            </a>
+            <a href="#"><img src="images/instagram-icon.png" alt="Instagram"></a>
+        </div>
+    </footer>
+
+    <script>
+        // Modal Open and Close
+        function openModal() {
+            document.getElementById('bookingModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        // Smooth Scroll
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
